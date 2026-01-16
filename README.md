@@ -3,174 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Especialista Claro TV+ | Guia de Vendas 2026</title>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>HUB TV+ | PAINEL EXPERT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --claro-red: #ee2924; --bg: #f4f4f4; --white: #ffffff; --dark: #333; }
+        :root { --claro-red: #ee2924; --bg-dark: #0b0d10; --card-bg: #161a1f; --text-gray: #a0a0a0; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Open Sans', sans-serif; background: var(--bg); color: var(--dark); }
+        body { font-family: 'Inter', sans-serif; background: var(--bg-dark); color: #fff; overflow-x: hidden; }
+
+        header { padding: 40px 25px; background: linear-gradient(to bottom, #1e0505, var(--bg-dark)); text-align: center; }
+        header h1 { font-size: 26px; font-weight: 900; }
+        header h1 span { color: var(--claro-red); }
+
+        .container { padding: 20px; max-width: 1200px; margin: auto; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; }
+        .st-card { 
+            background: var(--card-bg); border-radius: 20px; padding: 25px 15px; text-align: center;
+            border: 1px solid rgba(255,255,255,0.05); cursor: pointer; transition: 0.3s;
+        }
+
+        #details-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-dark); z-index: 1000; overflow-y: auto; }
+        .nav-header { padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; background: #000; border-bottom: 2px solid var(--claro-red); }
+        .home-btn { color: var(--claro-red); font-weight: 800; cursor: pointer; }
+
+        /* ABAS DINÂMICAS - ESTILO IMAGE_154FC2.JPG */
+        .tabs-scroll { display: flex; gap: 10px; padding: 20px; overflow-x: auto; scrollbar-width: none; background: #161a1f; }
+        .tab { 
+            background: #fff; color: #000; padding: 10px 20px; border-radius: 25px; 
+            font-size: 11px; font-weight: 800; white-space: nowrap; cursor: pointer; border: 2px solid transparent;
+            transition: 0.3s; text-align: center; min-width: 150px;
+        }
+        .tab.active { background: #ffff00 !important; border-color: #ffaa00; box-shadow: 0 0 15px rgba(255,255,0,0.5); }
+
+        /* LAYOUT 3 COLUNAS */
+        .ranking-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 15px; }
+        .rank-column { border-right: 1px dashed #444; padding: 0 5px; }
+        .rank-column:last-child { border-right: none; }
+        .rank-label { background: var(--claro-red); text-align: center; font-size: 12px; font-weight: 800; padding: 8px; border-radius: 5px; margin-bottom: 10px; }
         
-        header { background: var(--white); padding: 20px; text-align: center; border-bottom: 5px solid var(--claro-red); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        header h1 { color: var(--claro-red); font-size: 1.2rem; margin-bottom: 5px; }
-        header p { font-size: 0.85rem; color: #666; }
-
-        .container { padding: 15px; max-width: 500px; margin: auto; }
-
-        /* Grid de Streamings */
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
-        .st-card { background: var(--white); border-radius: 12px; padding: 15px; text-align: center; border: 1px solid #ddd; cursor: pointer; transition: 0.2s; }
-        .st-card:active { transform: scale(0.95); }
-        .st-card img { height: 35px; margin-bottom: 8px; object-fit: contain; }
-        .st-card .badge { font-size: 0.65rem; color: var(--claro-red); font-weight: bold; text-transform: uppercase; }
-
-        /* Modal / Página de Conteúdo */
-        #page-content { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--white); z-index: 100; overflow-y: auto; padding: 20px; }
-        .back-btn { background: var(--claro-red); color: white; border: none; padding: 12px; width: 100%; border-radius: 8px; font-weight: bold; margin-bottom: 20px; }
-
-        .tabs { display: flex; gap: 8px; margin-bottom: 20px; }
-        .tab-btn { flex: 1; padding: 10px; border: none; background: #eee; border-radius: 6px; font-weight: bold; cursor: pointer; }
-        .tab-btn.active { background: var(--claro-red); color: white; }
-
-        /* Cards de Filmes/Séries */
-        .content-item { background: #fff; border: 1px solid #eee; border-radius: 10px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .pos { background: gold; padding: 2px 6px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; }
-        .title { font-size: 1.1rem; font-weight: bold; color: var(--claro-red); margin: 5px 0; }
-        .synopsis { font-size: 0.85rem; color: #555; margin-bottom: 10px; line-height: 1.4; }
-        .pitch { background: #fff0f0; border-left: 4px solid var(--claro-red); padding: 10px; font-size: 0.85rem; margin-bottom: 12px; }
-        .yt-btn { display: block; background: #ff0000; color: white; text-align: center; padding: 10px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.85rem; }
-
-        /* Tabela de Economia */
-        .economy-table { margin-top: 30px; font-size: 0.8rem; width: 100%; border-collapse: collapse; }
-        .economy-table td { padding: 10px; border-bottom: 1px solid #eee; }
-        .economy-table tr:last-child { font-weight: bold; color: green; font-size: 1rem; }
+        .poster-container { background: #222; border-radius: 15px; aspect-ratio: 2/3; background-size: cover; border: 2px solid var(--claro-red); margin-bottom: 10px; }
+        .synopsis-box { background: #fff; color: #000; padding: 10px; border-radius: 10px; font-size: 10px; font-weight: 700; height: 100px; margin-bottom: 10px; }
+        .btn-trailer { background: #fff; color: #000; text-align: center; padding: 8px; border-radius: 8px; font-weight: 800; font-size: 10px; text-decoration: none; border: 2px solid #00ff00; display: block; }
+        .movie-name-footer { background: var(--claro-red); text-align: center; padding: 10px; font-size: 11px; font-weight: 800; margin-top: 10px; border-radius: 5px; }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>ESPECIALISTA CLARO TV+</h1>
-    <p>O melhor conteúdo do mundo em um só lugar.</p>
-</header>
-
-<div class="container">
-    <div class="grid" id="main-grid">
-        </div>
-    
-    <div style="margin-top: 30px; text-align: center; padding: 15px; background: #eee; border-radius: 10px;">
-        <small>Dica: Use o site para mostrar ao cliente a economia real de ter todos os streamings inclusos.</small>
-    </div>
+<div id="home-view">
+    <header><h1>HUB TV+ |<span> PAINEL</span></h1></header>
+    <div class="container"><div class="grid" id="main-grid"></div></div>
 </div>
 
-<div id="page-content">
-    <button class="back-btn" onclick="closeDetails()">← VOLTAR AO MENU</button>
-    <div id="details-header"></div>
-    
-    <div class="tabs">
-        <button class="tab-btn active" onclick="switchTab('ranking')">TOP 3 ATUAL</button>
-        <button class="tab-btn" onclick="switchTab('future')">EM BREVE</button>
+<div id="details-page">
+    <div class="nav-header">
+        <span class="home-btn" onclick="closeDetails()">🏠 HOME</span>
+        <span id="st-name-header" style="font-weight:900;">STREAMING</span>
+        <span></span>
     </div>
-
-    <div id="ranking-list"></div>
-    <div id="future-list" style="display:none;"></div>
-    
-    <table class="economy-table" id="economy-box"></table>
+    <div class="tabs-scroll">
+        <div class="tab active" id="tab-1" onclick="updateRanking('FILMES MÊS', 'tab-1')">TOP Filmes no último mês</div>
+        <div class="tab" id="tab-2" onclick="updateRanking('FILMES SEMANA', 'tab-2')">TOP Filmes na última semana</div>
+        <div class="tab" id="tab-3" onclick="updateRanking('SÉRIES', 'tab-3')">TOP Séries no último mês</div>
+        <div class="tab" id="tab-4" onclick="updateRanking('LANÇAMENTOS', 'tab-4')">Próximos Lançamentos</div>
+    </div>
+    <div class="ranking-grid" id="ranking-content"></div>
 </div>
 
 <script>
-    const data = {
-        'Max': {
-            plano: 'Standard com Anúncios',
-            preco: 'R$ 29,90',
-            top: [
-                {t: 'Coringa: Delírio a Dois', s: 'Arthur Fleck aguarda o julgamento por seus crimes enquanto encontra o amor e a música dentro dele.', p: 'O filme que acabou de sair do cinema! Argumento imbatível para fãs de drama.'},
-                {t: 'The Last of Us (T2)', s: 'Ellie e Joel enfrentam as consequências de suas escolhas em um mundo perigoso.', p: 'A maior série de 2026. Quem não tem Claro TV+ vai ficar de fora da conversa.'}
-            ],
-            future: 'The White Lotus: Tailândia (Fevereiro)'
-        },
-        'Netflix': {
-            plano: 'Padrão com Anúncios',
-            preco: 'R$ 20,90',
-            top: [
-                {t: 'His & Hers', s: 'Um suspense de tirar o fôlego baseado no best-seller internacional.', p: 'Ideal para quem gosta de maratonar séries de mistério no fim de semana.'}
-            ],
-            future: 'Wednesday (T2) - Fevereiro/2026'
-        },
-        'Apple TV+': {
-            plano: 'Sem Anúncios (Premium)',
-            preco: 'R$ 21,90',
-            top: [
-                {t: 'F1 (Brad Pitt)', s: 'Realismo absurdo em uma história de superação nas pistas mais rápidas do mundo.', p: 'Qualidade de cinema. Perfeito para demonstrar o poder da imagem na Claro.'}
-            ],
-            future: 'Severance (T2) - Em Breve'
-        },
-        'Globoplay': {
-            plano: 'Premium (Sem Anúncios)',
-            preco: 'R$ 54,90',
-            top: [
-                {t: 'Guerreiros do Sol', s: 'A nova superprodução épica original Globoplay.', p: 'Destaque que o Globoplay da Claro é o PREMIUM: sem comerciais e com tudo liberado.'}
-            ],
-            future: 'BBB 26 - Acompanhe 24h'
-        }
-    };
-
+    const streamings = ['Netflix', 'Max', 'Disney+', 'Prime Video', 'Apple TV+', 'Globoplay'];
     function init() {
         const grid = document.getElementById('main-grid');
-        Object.keys(data).forEach(key => {
-            grid.innerHTML += `
-                <div class="st-card" onclick="openDetails('${key}')">
-                    <img src="https://via.placeholder.com/100x40?text=${key}" alt="${key}">
-                    <span class="badge">Incluso</span>
-                </div>
-            `;
+        streamings.forEach(st => {
+            grid.innerHTML += `<div class="st-card" onclick="openDetails('${st}')"><h3>${st}</h3><span style="font-size:9px; color:var(--claro-red)">INCLUSO</span></div>`;
         });
     }
-
-    function openDetails(key) {
-        const item = data[key];
-        document.getElementById('details-header').innerHTML = `
-            <h2 style="color:var(--claro-red)">${key}</h2>
-            <p style="margin-bottom:20px; font-size:0.9rem"><b>Plano:</b> ${item.plano}</p>
-        `;
-        
-        let rankHtml = '';
-        item.top.forEach((content, index) => {
-            rankHtml += `
-                <div class="content-item">
-                    <span class="pos">#${index+1} POPULAR</span>
-                    <div class="title">${content.t}</div>
-                    <div class="synopsis">${content.s}</div>
-                    <div class="pitch"><strong>Estratégia:</strong> ${content.p}</div>
-                    <a href="https://www.youtube.com/results?search_query=${content.t}+trailer" target="_blank" class="yt-btn">VER TRAILER ▶️</a>
-                </div>
-            `;
-        });
-        document.getElementById('ranking-list').innerHTML = rankHtml;
-        
-        document.getElementById('future-list').innerHTML = `
-            <div class="content-item">
-                <div class="title">🚀 ${item.future}</div>
-                <div class="pitch">Use esse lançamento para criar urgência na assinatura hoje!</div>
-            </div>
-        `;
-
-        document.getElementById('economy-box').innerHTML = `
-            <tr><td>Assinatura Avulsa</td><td>${item.preco}</td></tr>
-            <tr><td>Na Claro TV+</td><td>R$ 0,00 Adicional</td></tr>
-            <tr><td>SUA ECONOMIA</td><td>100% NESTE APP</td></tr>
-        `;
-
-        document.getElementById('page-content').style.display = 'block';
-        window.scrollTo(0,0);
+    function openDetails(name) {
+        document.getElementById('st-name-header').innerText = name.toUpperCase();
+        updateRanking('FILMES MÊS', 'tab-1');
+        document.getElementById('details-page').style.display = 'block';
     }
-
-    function closeDetails() { document.getElementById('page-content').style.display = 'none'; }
-
-    function switchTab(type) {
-        document.getElementById('ranking-list').style.display = type === 'ranking' ? 'block' : 'none';
-        document.getElementById('future-list').style.display = type === 'future' ? 'block' : 'none';
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active'));
+    function updateRanking(cat, tabId) {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        let html = '';
+        for(let i=1; i<=3; i++) {
+            html += `
+                <div class="rank-column">
+                    <div class="rank-label">${i}º lugar</div>
+                    <div class="poster-container" style="background-image: url('https://via.placeholder.com/400x600')"></div>
+                    <div class="synopsis-box">SINOPSE: Conteúdo bombando na Claro TV+ em Jan/2026.</div>
+                    <a href="#" class="btn-trailer">LINK TRAILER</a>
+                    <div class="movie-name-footer">NOME DO FILME</div>
+                </div>`;
+        }
+        document.getElementById('ranking-content').innerHTML = html;
     }
-
+    function closeDetails() { document.getElementById('details-page').style.display = 'none'; }
     init();
 </script>
 </body>
